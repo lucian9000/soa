@@ -574,8 +574,12 @@
         @media (max-width: 768px) {
             .slide-container {
                 padding: 30px;
-                height: 80vh;
-                max-height: 80vh;
+                padding-bottom: 160px;
+                /* Ensure space to scroll past the fixed UI footer */
+                height: 100vh;
+                max-height: 100vh;
+                border-radius: 0;
+                border: none;
             }
 
             .slide-container h1 {
