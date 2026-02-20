@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State of Ashes Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+* { box-sizing: border-box; }
+p { margin: 0; margin-bottom: 15px; }
+body {
+  background-color: #0F0F0F;
+  background-image: 
+    linear-gradient(rgba(15, 15, 15, 0.92), rgba(15, 15, 15, 0.92)),
+    repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(255,255,255,0.05) 4px, rgba(255,255,255,0.05) 5px),
+    repeating-linear-gradient(-45deg, transparent, transparent 4px, rgba(255,255,255,0.05) 4px, rgba(255,255,255,0.05) 5px);
+  margin: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.slide-container {
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid rgba(255, 165, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.5);
+  display: none;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  height: 720px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 60px;
+  position: absolute;
+  width: 1280px;
+  max-width: 95vw;
+  max-height: 85vh;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.slide-container.active {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+  z-index: 10;
+}
+.slide-container::before {
+  content: '';
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 0;
+  background: radial-gradient(circle at center, rgba(255, 165, 0, 0.05) 0%, transparent 70%);
+}
+.slide-container > * { position: relative; z-index: 1; }
+.slide-container h1, .slide-container h2, .slide-container h3, .slide-container .logo-font {
+  color: #FFA500;
+  font-family: 'Michroma', sans-serif;
+  text-transform: uppercase;
+  margin: 0;
+}
+.slide-container p, .slide-container li, .slide-container .legend li,
+.slide-container th, .slide-container td,
+.slide-container .alternating-text-tile p, .slide-container .bleed-text-side p {
+  color: #E5E5E5;
+  font-family: 'Roboto', sans-serif;
+}
+.slide-container .subtitle {
+  color: #546E7A;
+  font-family: 'Michroma', sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin: 20px auto;
+  line-height: 1.5;
+}
+.slide-container h1 { font-size: 50px; line-height: 1.2; text-shadow: 0 0 20px rgba(255, 165, 0, 0.2); }
+.slide-container .slide-title {
+  font-size: 36px;
+  font-weight: 400;
+  margin-bottom: 40px;
+  text-align: left;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 165, 0, 0.2);
+  padding-bottom: 10px;
+  text-shadow: 0 0 10px rgba(255, 165, 0, 0.3);
+}
+.slide-container h3 { font-size: 24px; font-weight: 400; margin-bottom: 15px; color: #FF4500; }
+.slide-container p, .slide-container li { font-size: 20px; line-height: 1.6; }
+.slide-container .content-area {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  width: 100%;
+}
+.transparent-logo {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  filter: none !important;
+  mix-blend-mode: screen;
+}
+.title-layout { text-align: center; width: 100%; max-width: 1000px; }
+.title-logo-wrapper { margin-bottom: 40px; }
+.title-logo-wrapper img { height: 180px; width: auto; object-fit: contain; }
+.two-column {
+  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  width: 100%;
+}
+.two-column.tiled { align-items: stretch; }
+.two-column.tiled > div {
+  background-color: rgba(44, 62, 80, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 165, 0, 0.15);
+  padding: 40px;
+  text-align: left;
+}
+.two-column ul { list-style: none; margin: 0; padding-left: 0; }
+.two-column li { margin-bottom: 25px; }
+.two-column li strong { color: #FFA500; display: block; font-family: 'Michroma', sans-serif; font-size: 16px; margin-bottom: 5px; }
+.image-wrapper { border-radius: 12px; height: 400px; max-width: 100%; overflow: hidden; width: 100%; border: 1px solid rgba(255, 165, 0, 0.3); box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+.image-wrapper img { height: 100%; max-width: 100%; object-fit: cover; width: 100%; }
+.two-column .image-wrapper img { object-fit: contain; background: #000; }
+.tiled-content { align-items: stretch; display: flex; gap: 40px; justify-content: center; width: 100%; }
+.tile { align-items: flex-start; background-color: rgba(44, 62, 80, 0.1); border-radius: 12px; border: 1px solid rgba(255, 165, 0, 0.15); display: flex; flex-direction: column; flex: 1; justify-content: flex-start; padding: 40px 30px; text-align: left; }
+.tile .icon { color: #FFA500; font-size: 40px; margin-bottom: 25px; }
+.bullet-list { max-width: 1000px; width: 100%; align-self: flex-start; }
+.bullet-list ul { list-style: none; margin: 0; padding: 0; }
+.bullet-list li { gap: 15px; margin-bottom: 30px; padding-left: 50px; position: relative; background: rgba(44, 62, 80, 0.1); border: 1px solid rgba(255, 165, 0, 0.1); padding: 25px 25px 25px 70px; border-radius: 8px; }
+.bullet-list i { color: #FF4500; font-size: 24px; left: 25px; margin-top: 5px; position: absolute; top: 25px; }
+.bullet-list li strong { color: #FFA500; font-family: 'Michroma', sans-serif; font-size: 16px; display: block; margin-bottom: 5px; }
+.timeline-layout { align-items: stretch; display: flex; height: stretch; justify-content: space-between; position: relative; width: 100%; margin-top: 50px; }
+.timeline-layout .timeline-line { background-color: rgba(255, 165, 0, 0.3); height: 4px; left: 0; position: absolute; top: 50%; transform: translateY(-2px); width: 100%; z-index: 0; }
+.timeline-item { position: relative; text-align: center; width: 23%; }
+.timeline-item::after { background-color: #0F0F0F; border-radius: 50%; border: 4px solid #FFA500; content: ''; height: 24px; left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%); width: 24px; z-index: 1; box-shadow: 0 0 15px rgba(255, 165, 0, 0.5); }
+.timeline-item .content-wrapper { left: 0; position: absolute; width: 100%; background: rgba(44, 62, 80, 0.1); border: 1px solid rgba(255, 165, 0, 0.1); padding: 20px; border-radius: 8px; }
+.timeline-item:nth-child(odd) .content-wrapper { bottom: 50%; margin-bottom: 35px; }
+.timeline-item:nth-child(even) .content-wrapper { margin-top: 35px; top: 50%; }
+.timeline-item h3 { color: #FFA500; font-size: 16px; margin-bottom: 10px; }
+.timeline-item p { font-size: 15px; }
+.slide-container.bleed-image-layout { align-items: start; display: grid; gap: 50px; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0; }
+.slide-container.bleed-image-layout > .content-container { padding: 60px 0 60px 60px; height: 100%; display: flex; flex-direction: column; }
+.slide-container.bleed-image-layout > .image-container { height: 100%; overflow: hidden; width: 100%; }
+.slide-container.bleed-image-layout img.bleed-image-side { border-radius: 0 8px 8px 0; display: block; height: 720px; object-fit: cover; object-position: center; width: 100%; }
+.slide-container.bleed-image-layout .bleed-text-side { display: flex; flex-direction: column; justify-content: center; flex-grow: 1; }
+.status-button { display: inline-block; padding: 15px 30px; border: 2px solid #FF4500; background: rgba(255, 69, 0, 0.1); color: #FF4500; font-family: 'Michroma', sans-serif; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px rgba(255, 69, 0, 0.5); box-shadow: 0 0 20px rgba(255, 69, 0, 0.2); border-radius: 8px; margin-top: 30px; text-align: center; letter-spacing: 2px; }
+.status-button.pulse { animation: pulse-border 2s infinite; }
+@keyframes pulse-border { 0% { box-shadow: 0 0 10px rgba(255, 69, 0, 0.2); } 50% { box-shadow: 0 0 30px rgba(255, 69, 0, 0.6); } 100% { box-shadow: 0 0 10px rgba(255, 69, 0, 0.2); } }
+.progress-bar-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: rgba(255, 165, 0, 0.1); z-index: 100; }
+.progress-bar { height: 100%; background: #FFA500; width: 0%; transition: width 0.4s ease; box-shadow: 0 0 10px rgba(255, 165, 0, 0.5); }
+.presentation-ui { position: fixed; bottom: 0; left: 0; width: 100%; padding: 30px 40px; display: flex; justify-content: space-between; align-items: flex-end; z-index: 100; pointer-events: none; }
+.global-footer { display: flex; align-items: center; gap: 15px; pointer-events: auto; }
+.global-footer img { height: 45px; width: auto; opacity: 0.9; }
+.global-footer .footer-text { color: #546E7A; font-family: 'Michroma', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; display: flex; flex-direction: column; }
+.global-footer .slide-counter { color: #FFA500; font-family: 'Roboto', sans-serif; font-size: 10px; margin-top: 5px; opacity: 0.8; }
+.nav-controls { display: flex; gap: 15px; align-items: center; pointer-events: auto; }
+.nav-text { color: #546E7A; font-family: 'Roboto', sans-serif; font-size: 10px; letter-spacing: 2px; margin-right: 10px; text-transform: uppercase; }
+.nav-btn { background: rgba(44, 62, 80, 0.3); border: 1px solid rgba(255, 165, 0, 0.3); color: #E5E5E5; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 18px; transition: all 0.2s ease; }
+.nav-btn:hover { background: rgba(255, 165, 0, 0.2); border-color: #FFA500; color: #FFA500; transform: scale(1.1); }
+.nav-btn:disabled { opacity: 0.2; cursor: not-allowed; transform: none; }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<div class="presentation-ui">
+    <div class="global-footer">
+        <div class="footer-text">State of Ashes<span class="slide-counter" id="slideCounter">1 / 1</span></div>
+    </div>
+    <div class="nav-controls">
+        <span class="nav-text">Navigate</span>
+        <button class="nav-btn" id="prevBtn" disabled><i class="fas fa-chevron-left"></i></button>
+        <button class="nav-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+    </div>
+</div>
+
+<div class="slide-container active" id="slide1">
+    <div class="title-layout">
+        <div class="subtitle">Welcome to</div>
+        <h1>State of Ashes</h1>
+        <p style="margin-top: 20px; color: #FFA500;">Use arrow keys or buttons below to navigate</p>
+    </div>
+</div>
+
+<script>
+    const slides = document.querySelectorAll('.slide-container');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const progressBar = document.getElementById('progressBar');
+    const slideCounter = document.getElementById('slideCounter');
+    let currentSlide = 0;
+
+    function updateSlides() {
+        slides.forEach((slide, index) => {
+            if (index === currentSlide) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        });
+
+        // Update progress bar
+        const progress = ((currentSlide) / (slides.length - 1)) * 100;
+        progressBar.style.width = `${progress}%`;
+
+        // Update counter
+        slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+
+        // Update buttons
+        prevBtn.disabled = currentSlide === 0;
+        nextBtn.disabled = currentSlide === slides.length - 1;
+    }
+
+    prevBtn.addEventListener('click', () => {
+        if (currentSlide > 0) {
+            currentSlide--;
+            updateSlides();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentSlide < slides.length - 1) {
+            currentSlide++;
+            updateSlides();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' && currentSlide > 0) {
+            currentSlide--;
+            updateSlides();
+        } else if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) {
+            currentSlide++;
+            updateSlides();
+        }
+    });
+    
+    // Initialize
+    updateSlides();
+</script>
+</body>
+</html>
